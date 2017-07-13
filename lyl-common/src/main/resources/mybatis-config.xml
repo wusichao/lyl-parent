@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>    
+        <setting name="logImpl" value="LOG4J" />      
+    </settings>    
+
+	<!-- 别名 ,我暂时不用-->
+	<!-- 每一个在包 domain.blog 中的 Java Bean，在没有注解的情况下，会使用 Bean 的首字母小写的非限定类名来作为它的别名。 
+	比如 domain.blog.Author 的别名为 author -->
+	<!-- <typeAliases>
+		<package name="com.wsy.xpnk.entity"/>
+	</typeAliases> -->
+</configuration>

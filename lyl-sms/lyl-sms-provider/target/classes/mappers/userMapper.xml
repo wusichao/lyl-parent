@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lyl.mappers.UserProviderMapper">
+
+<resultMap id="BaseResultMap" type="org.lyl.model.User">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="pass_word" property="passWord" jdbcType="VARCHAR" />
+  </resultMap>
+  
+	<select id="add">
+		insert into sms_user (login_name,pass_word) values(#{loginName},#{passWord})
+	</select>
+	<select id="delete">
+		delete from sms_user where id=#{id}
+	</select>
+	<select id="update">
+		update sms_user set
+		login_name=#{loginName},
+		pass_word=#{passWord}
+		where id=#{id}
+	</select>
+	<select id="select" resultMap="BaseResultMap">
+		select * from sms_user
+		<where>
+			<if test="loginName != null">
+				login_name=#{loginName}
+			</if>
+		</where>
+	</select>
+	<select id="selectById" resultMap="BaseResultMap">
+		select * from sms_user where id=#{id}
+	</select>
+
+	<select id="getPermissionByUserId" resultType="java.lang.String">
+	SELECT
+	CONCAT(sm.code,':',sp.name) permission
+	FROM
+	sms_user su,
+	sms_role sr,
+	sms_menu sm,
+	sms_permission sp,
+	sms_role_menu_permission_rel srmpr,
+	sms_user_role_rel surl
+	WHERE
+	su.id = surl.user_id
+	AND sr.id = surl.role_id
+	AND sm.id = srmpr.menu_id
+	AND sp.id = srmpr.permission_id
+	AND sr.id = srmpr.role_id
+	and su.id =#{0}
+	</select>
+	<select id="findUserByName" resultMap="BaseResultMap">
+	select id,
+	login_name ,
+	pass_word from sms_user where login_name=#{0}
+	</select>
+</mapper>

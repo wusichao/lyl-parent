@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lyl.mappers.GoodsProviderMapper">
+<resultMap id="BaseResultMap" type="org.lyl.model.Goods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+  </resultMap>
+	<select id="add">
+		insert into store_goods (name,price) values(#{name},#{price})
+	</select>
+	<select id="delete">
+		delete from store_goods where id=#{id}
+	</select>
+	<select id="update">
+		update store_goods set
+		<if test="name != null">
+		name=#{name},
+		</if>
+		<if test="price != null">
+		price=#{price}
+		</if>
+		where id=#{id}
+	</select>
+	<select id="select" resultMap="BaseResultMap">
+		select * from store_goods
+		<where>
+			<if test="name != null">
+				name=#{name}
+			</if>
+		</where>
+	</select>
+	<select id="selectById" resultMap="BaseResultMap">
+		select * from store_goods where id=#{id}
+	</select>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lyl.mappers.LocProviderMapper">
+<resultMap id="BaseResultMap" type="org.lyl.model.LocGoodsOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+	<select id="add">
+		insert into store_loc_order (order_id,name) values(#{orderId},#{name})
+	</select>
+	<select id="delete">
+		delete from store_loc_order where id=#{id}
+	</select>
+	<select id="update">
+		update store_loc_order set
+		<if test="name != null">
+		name=#{name},
+		</if>
+		<if test="price != null">
+		price=#{price}
+		</if>
+		where id=#{id}
+	</select>
+	<select id="select" resultType="org.lyl.model.LocGoodsOrder">
+		select * from store_loc_order
+		<where>
+			<if test="name != null">
+				name=#{name}
+			</if>
+		</where>
+	</select>
+	<select id="selectById" resultType="org.lyl.model.LocGoodsOrder">
+		select * from store_loc_order where id=#{id}
+	</select>
+</mapper>

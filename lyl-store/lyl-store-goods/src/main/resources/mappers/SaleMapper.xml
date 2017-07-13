@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lyl.mappers.SaleProviderMapper">
+<resultMap id="BaseResultMap" type="org.lyl.model.GoodsOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="pay_date" property="payDate" jdbcType="TIMESTAMP" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+	<select id="add">
+		insert into store_goods_order (user_id,goods_id,price,state,pay_date,create_date) 
+				values(#{userId},#{goodsId},#{price},#{state},#{payDate},#{createDate})
+	</select>
+	<select id="delete">
+		delete from store_goods_order where id=#{id}
+	</select>
+	<select id="update">
+		update store_goods_order set
+		state=1,pay_date=now()
+		where id=#{id}
+	</select>
+	<select id="select" resultMap="BaseResultMap">
+		select * from store_goods_order
+		<where>
+			<if test="name != null">
+				name=#{name}
+			</if>
+		</where>
+	</select>
+	<select id="selectById" resultMap="BaseResultMap">
+		select * from store_goods_order where id=#{id}
+	</select>
+</mapper>
